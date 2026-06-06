@@ -258,9 +258,7 @@ git clone https://github.com/shivcodecf/Plinko.git
 cd backend
 
 npm install
-
 npx prisma generate
-
 npm run dev
 ```
 
@@ -268,9 +266,8 @@ npm run dev
 
 ```bash
 cd frontend
-
+cd pingo
 npm install
-
 npm run dev
 ```
 
