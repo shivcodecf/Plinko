@@ -8,66 +8,84 @@ export default function PlinkoBoard({ result }) {
     y: 0,
   });
 
- useEffect(() => {
-  if (!result?.path) return;
+  useEffect(() => {
+    if (!result?.path) return;
 
-  let currentX = 0;
-  let currentY = 0;
+    const prefersReducedMotion =
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
 
-  setBallPosition({
-    x: 0,
-    y: 0,
-  });
-
-  result.path.forEach((step, index) => {
-    setTimeout(() => {
-      currentY += 32;
-
-      if (step === "L") {
-        currentX -= 12;
-      } else {
-        currentX += 12;
-      }
+    // Accessibility:
+    // Skip animation if user prefers reduced motion
+    if (prefersReducedMotion) {
+      const finalX =
+        (result.binIndex - 6) * 55;
 
       setBallPosition({
-        x: currentX,
-        y: currentY,
+        x: finalX,
+        y: 465,
       });
 
-      // Last step
-      if (index === result.path.length - 1) {
+      return;
+    }
 
-        const binOffset =
-          (result.binIndex - 6) * 55;
+    let currentX = 0;
+    let currentY = 0;
 
-        setTimeout(() => {
-          setBallPosition({
-            x: binOffset,
-            y: currentY + 80,
-          });
-        }, 250);
-      }
+    setBallPosition({
+      x: 0,
+      y: 0,
+    });
 
-    }, index * 350);
-  });
+    result.path.forEach((step, index) => {
+      setTimeout(() => {
+        currentY += 32;
 
-}, [result]);
+        if (step === "L") {
+          currentX -= 12;
+        } else {
+          currentX += 12;
+        }
+
+        setBallPosition({
+          x: currentX,
+          y: currentY,
+        });
+
+        // Final landing
+        if (
+          index === result.path.length - 1
+        ) {
+          const finalX =
+            (result.binIndex - 6) * 55;
+
+          setTimeout(() => {
+            setBallPosition({
+              x: finalX,
+              y: currentY + 80,
+            });
+          }, 250);
+        }
+      }, index * 350);
+    });
+  }, [result]);
 
   const multipliers = [
-  20,
-  10,
-  5,
-  3,
-  2,
-  1,
-  0.5,
-  1,
-  2,
-  3,
-  5,
-  10,
-  20,
-];
+    20,
+    10,
+    5,
+    3,
+    2,
+    1,
+    0.5,
+    1,
+    2,
+    3,
+    5,
+    10,
+    20,
+  ];
 
   return (
     <div
@@ -99,7 +117,8 @@ export default function PlinkoBoard({ result }) {
             transform: `translate(${ballPosition.x}px, ${ballPosition.y}px)`,
             transition: "all 0.3s ease",
             zIndex: 10,
-            boxShadow: "0 0 12px rgba(239,68,68,0.8)",
+            boxShadow:
+              "0 0 12px rgba(239,68,68,0.8)",
           }}
         />
 
@@ -112,28 +131,32 @@ export default function PlinkoBoard({ result }) {
             marginTop: "20px",
           }}
         >
-          {Array.from({ length: rows }).map((_, row) => (
-            <div
-              key={row}
-              style={{
-                display: "flex",
-                gap: "24px",
-                marginBottom: "18px",
-              }}
-            >
-              {Array.from({ length: row + 1 }).map((_, peg) => (
-                <div
-                  key={peg}
-                  style={{
-                    width: "12px",
-                    height: "12px",
-                    borderRadius: "50%",
-                    background: "white",
-                  }}
-                />
-              ))}
-            </div>
-          ))}
+          {Array.from({ length: rows }).map(
+            (_, row) => (
+              <div
+                key={row}
+                style={{
+                  display: "flex",
+                  gap: "24px",
+                  marginBottom: "18px",
+                }}
+              >
+                {Array.from({
+                  length: row + 1,
+                }).map((_, peg) => (
+                  <div
+                    key={peg}
+                    style={{
+                      width: "12px",
+                      height: "12px",
+                      borderRadius: "50%",
+                      background: "white",
+                    }}
+                  />
+                ))}
+              </div>
+            )
+          )}
         </div>
       </div>
 
@@ -167,6 +190,17 @@ export default function PlinkoBoard({ result }) {
         ))}
       </div>
 
+      {/* Accessibility Hint */}
+      <p
+        style={{
+          color: "#9ca3af",
+          fontSize: "14px",
+          marginTop: "15px",
+        }}
+      >
+        ⬅ ➡ Change Drop Column • SPACE Drop Ball
+      </p>
+
       {/* Result */}
       {result && (
         <div
@@ -178,10 +212,6 @@ export default function PlinkoBoard({ result }) {
           <h3>
             🎯 Final Bin: {result.binIndex}
           </h3>
-
-          <p>
-            Path: {result.path.join(" → ")}
-          </p>
         </div>
       )}
     </div>
