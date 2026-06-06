@@ -234,6 +234,13 @@ GET /api/rounds/:id/verify
 ### Fairness Verification
 
 *Add screenshot here*
+<img width="1888" height="901" alt="{11098A3D-C173-4664-8079-002FDCEF07AB}" src="https://github.com/user-attachments/assets/1a278c9a-539a-479a-940f-0c110205ee24" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/6e1a855c-557e-44ad-aaa2-bcb5a875bbf7" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b200e0c5-2655-4b99-a54b-1458ee652b06" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/dcdec7f3-2523-4db0-9158-600fe0458a10" />
+
+
+
 
 ---
 
