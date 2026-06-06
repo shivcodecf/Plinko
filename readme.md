@@ -283,12 +283,14 @@ Backend:
 ```env
 DATABASE_URL=your_database_url
 DIRECT_URL=your_direct_database_url
+FRONTEND_URL=your_frontend_url
+PORT=9000
 ```
 
 Frontend:
 
 ```env
-VITE_API_URL=http://localhost:5000
+VITE_BACKEND_API="http://localhost:5000/api/rounds"
 ```
 
 ---
