@@ -300,6 +300,13 @@ VITE_API_URL=http://localhost:5000
 * Reduced motion mode support
 
 ---
+## Design Decisions & AI Usage
+
+A key design decision was implementing a provably fair commit–reveal mechanism using a server seed, client seed, and nonce. This ensures that game outcomes can be independently verified after each round. PostgreSQL and Prisma were chosen for reliable data persistence, while the application architecture separates game logic, fairness verification, and API endpoints to keep the codebase maintainable and testable.
+
+AI tools were primarily used as a development assistant for brainstorming implementation approaches, debugging issues, reviewing code structure, and improving the user interface. They were especially helpful during accessibility enhancements, deployment setup, and fairness verification workflows. All final implementation decisions, integrations, testing, and deployment were completed by me.
+
+---
 
 ## 👨‍💻 Author
 
