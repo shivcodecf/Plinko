@@ -28,33 +28,39 @@ export default function GamePage() {
 
   //   const [roundId, setRoundId] = useState("");
 
-  const handlePlay = async () => {
-    try {
-      const commitRes = await createCommit();
-      setLoading(true);
+ const [error, setError] = useState("");
 
-      const id = commitRes.data.roundId;
+const handlePlay = async () => {
+  if (dropColumn < 0 || dropColumn > 12) {
+    setError("Drop column must be between 0 and 12");
+    return;
+  }
 
-      setRoundId(id);
+  setError("");
 
-      setCommitHex(commitRes.data.commitHex);
+  try {
+    const commitRes = await createCommit();
+    setLoading(true);
 
-      const startRes = await startRound(id, {
-        clientSeed,
-        betCents,
-        dropColumn,
-      });
+    const id = commitRes.data.roundId;
 
-      setResult(startRes.data.result);
+    setRoundId(id);
+    setCommitHex(commitRes.data.commitHex);
 
-      console.log(startRes.data.result);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const startRes = await startRound(id, {
+      clientSeed,
+      betCents,
+      dropColumn,
+    });
 
+    setResult(startRes.data.result);
+
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
   const handleKeyDown = (e) => {
@@ -110,6 +116,8 @@ export default function GamePage() {
         handlePlay={handlePlay}
         loading={loading}
         setLoading={setLoading}
+        error={error}
+        
       />
 
       <PlinkoBoard result={result} />

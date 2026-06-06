@@ -1,7 +1,12 @@
 import axios from "axios";
 
-const API =
-  "http://localhost:5000/api/rounds";
+const API = import.meta.env.VITE_BACKEND_API;
+
+console.log(import.meta.env.VITE_BACKEND_API);
+
+console.log(import.meta.env);
+
+  
   
 
 export const createCommit = () =>

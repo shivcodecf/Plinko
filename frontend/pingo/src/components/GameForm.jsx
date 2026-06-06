@@ -8,6 +8,7 @@ export default function GameForm({
   handlePlay,
   loading,
   setLoading,
+  error
 }) {
   return (
     <div>
@@ -63,7 +64,7 @@ export default function GameForm({
           <input
             type="number"
             value={betCents}
-            onChange={(e) => setBetCents(e.target.value)}
+            onChange={(e) => setBetCents(Number(e.target.value))}
             placeholder="100"
             style={{
               padding: "12px",
@@ -85,7 +86,7 @@ export default function GameForm({
               color: "#9ca3af",
             }}
           >
-           Drop Column
+            Drop Column
           </label>
 
           <input
@@ -93,6 +94,9 @@ export default function GameForm({
             min="0"
             max="12"
             value={dropColumn}
+            min="0"
+            max="12"
+            placeholder="enter in range of [0,12]"
             onChange={(e) => setDropColumn(Number(e.target.value))}
             placeholder="0"
             style={{
@@ -105,6 +109,20 @@ export default function GameForm({
               fontSize: "16px",
             }}
           />
+
+          {error && (
+            <p
+              style={{
+                color: "#ef4444",
+                fontSize: "14px",
+                marginTop: "5px",
+              }}
+            >
+              {error}
+            </p>
+          )}
+
+
         </div>
       </div>
 
