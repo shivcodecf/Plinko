@@ -150,7 +150,7 @@ export default function PlinkoBoard({ result }) {
                       width: "12px",
                       height: "12px",
                       borderRadius: "50%",
-                      background: "white",
+                      background: "#60a5fa",
                     }}
                   />
                 ))}
